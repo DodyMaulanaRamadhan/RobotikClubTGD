@@ -3,189 +3,356 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pendaftaran Kelas Robotik</title>
+    <title>Pendaftaran Kelas Club Robotic - STMIK Triguna Dharma</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-blue: #2563eb;
+            --dark-bg: #0f172a;
+            --accent-blue: #3b82f6;
+            --light-blue: #bfdbfe;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
-            background: #0a0a0a;
-            color: #fff;
-            line-height: 1.6;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1e293b 100%);
+            min-height: 100vh;
+            padding: 2rem;
+            display: grid;
+            place-items: center;
         }
 
         .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .header {
+        h1 {
+            color: var(--light-blue);
             text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .title {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, #00f3ff, #0066ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .description {
-            font-size: 1.1em;
-            color: #aaa;
-            margin-bottom: 40px;
+            color: #94a3b8;
+            text-align: center;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+            font-size: 0.95rem;
+            padding: 0 1rem;
         }
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 1.8rem;
+            position: relative;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
-            color: #00f3ff;
+            color: #e2e8f0;
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
             font-weight: 500;
         }
 
         input, select {
             width: 100%;
-            padding: 12px;
-            background: #111;
-            border: 1px solid #222;
-            color: #fff;
-            border-radius: 5px;
+            padding: 1rem;
+            background: rgba(30, 41, 59, 0.6);
+            border: 2px solid rgba(59, 130, 246, 0.2);
+            border-radius: 10px;
+            color: #f8fafc;
+            font-size: 0.95rem;
             transition: all 0.3s ease;
         }
 
         input:focus, select:focus {
-            border-color: #00f3ff;
             outline: none;
-            box-shadow: 0 0 8px rgba(0, 243, 255, 0.3);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+            background: rgba(30, 41, 59, 0.8);
         }
 
         .checkbox-group {
             display: flex;
-            gap: 20px;
+            gap: 1.5rem;
+            margin-top: 1rem;
         }
 
         .checkbox-item {
+            position: relative;
             display: flex;
             align-items: center;
-            gap: 8px;
+            cursor: pointer;
+        }
+
+        .checkbox-item input {
+            opacity: 0;
+            position: absolute;
+        }
+
+        .checkmark {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent-blue);
+            border-radius: 5px;
+            margin-right: 0.7rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-item input:checked ~ .checkmark {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+        }
+
+        .checkmark::after {
+            content: "✓";
+            position: absolute;
+            color: white;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .checkbox-item input:checked ~ .checkmark::after {
+            opacity: 1;
         }
 
         button {
-            background: linear-gradient(45deg, #0066ff, #00f3ff);
-            color: #fff;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-blue) 100%);
+            color: white;
+            padding: 1.2rem;
             border: none;
-            padding: 15px 40px;
-            border-radius: 25px;
-            font-size: 1.1em;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            width: 100%;
             text-transform: uppercase;
-            font-weight: bold;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
 
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 243, 255, 0.3);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
         }
 
-        .loading {
+        .error {
+            color: #f87171;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
             display: none;
-            margin-top: 20px;
-            color: #00f3ff;
+            animation: slideUp 0.3s ease;
+        }
+
+        .success-message {
+            background: rgba(34, 197, 94, 0.15);
+            color: #4ade80;
+            padding: 1.2rem;
+            border-radius: 10px;
+            margin-top: 1.5rem;
+            display: none;
+            text-align: center;
+            border: 1px solid rgba(74, 222, 128, 0.2);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .checkbox-group {
+                flex-direction: column;
+                gap: 1rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1 class="title">Pendaftaran Kelas Robotik Sabtu 11.00-12.00 WIB</h1>
-            <p class="description">Tingkatkan Kompetensi Teknik Anda Bersama Club Robotic STMIK Triguna Dharma! Di era industri 4.0, keterampilan robotika semakin dicari dan dibutuhkan. Club Robotic STMIK Triguna Dharma hadir sebagai wadah bagi mahasiswa STMIK Triguna Dharma untuk mengembangkan keterampilan praktis dalam perancangan, pembuatan, dan pemrograman robot. Pelajari konsep-konsep robotika terkini, aplikasikan teori ke dalam proyek nyata, dan persiapkan diri untuk karir yang gemilang di bidang teknologi. Investasikan waktu Anda untuk masa depan yang cerah bersama Club Robotic STMIK Triguna Dharma!</p>
+        <h1>Robotic Club Class Registration</h1>
+        
+        <div class="description">
+            Tingkatkan Kompetensi Teknik Anda Bersama Club Robotic STMIK Triguna Dharma! Di era industri 4.0, keterampilan robotika semakin dicari. Kembangkan skill praktis dalam perancangan robot, pelajari konsep terkini, aplikasikan teori ke proyek nyata, dan persiapkan karir gemilang di bidang teknologi!
         </div>
 
         <form id="registrationForm">
             <div class="form-group">
                 <label for="nama">Nama Lengkap</label>
                 <input type="text" id="nama" required>
+                <div class="error" id="namaError">Nama harus diisi</div>
             </div>
 
             <div class="form-group">
                 <label for="kelas">Kelas</label>
                 <input type="text" id="kelas" required>
+                <div class="error" id="kelasError">Kelas harus diisi</div>
             </div>
 
             <div class="form-group">
                 <label for="nirm">NIRM</label>
-                <input type="text" id="nirm" required>
+                <input type="number" id="nirm" required pattern="[0-9]{10}">
+                <div class="error" id="nirmError">NIRM harus 10 digit angka</div>
             </div>
 
             <div class="form-group">
                 <label for="whatsapp">Nomor WhatsApp</label>
-                <input type="tel" id="whatsapp" required>
+                <input type="tel" id="whatsapp" required pattern="^\+?\d{10,15}$">
+                <div class="error" id="whatsappError">Format nomor tidak valid</div>
             </div>
 
             <div class="form-group">
-                <label>Pilihan Kelas</label>
+                <label>Kelas yang Diikuti</label>
                 <div class="checkbox-group">
                     <label class="checkbox-item">
-                        <input type="checkbox" value="Mikrokontroler"> Mikrokontroler
+                        <input type="checkbox" name="kelasRobotik" value="mikrokontroler">
+                        <span class="checkmark"></span>
+                        Mikrokontroler
                     </label>
                     <label class="checkbox-item">
-                        <input type="checkbox" value="PLC"> PLC
+                        <input type="checkbox" name="kelasRobotik" value="plc">
+                        <span class="checkmark"></span>
+                        PLC
                     </label>
                 </div>
+                <div class="error" id="kelasRobotikError">Pilih minimal satu kelas</div>
             </div>
 
-            <button type="submit">DAFTAR SEKARANG</button>
-            <div class="loading" id="loading">Mengirim data...</div>
+            <button type="submit">Daftar Sekarang</button>
         </form>
+
+        <div class="success-message" id="successMessage">
+            ✓ Pendaftaran Berhasil! Tim kami akan segera menghubungi Anda.
+        </div>
     </div>
 
     <script>
-        document.getElementById('registrationForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const formData = {
-                nama: document.getElementById('nama').value,
-                kelas: document.getElementById('kelas').value,
-                nirm: document.getElementById('nirm').value,
-                whatsapp: document.getElementById('whatsapp').value,
-                pilihanKelas: Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
-                                .map(checkbox => checkbox.value)
-            };
+        const form = document.getElementById('registrationForm');
+const successMessage = document.getElementById('successMessage');
 
-            const loading = document.getElementById('loading');
-            loading.style.display = 'block';
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    let isValid = true;
 
-            try {
-                const response = await fetch('https://script.google.com/macros/s/AKfycbxFL3Yo0kW6L2LfYbUT-wbM6Djr9VQTMm-govvcFHq2vROa_Fvl3geEOUZ-0l8gn0JdCw/exec', {
-                    method: 'POST',
-                    body: JSON.stringify(formData)
-                });
+    // Validasi checkbox
+    const checkboxes = document.querySelectorAll('input[name="kelasRobotik"]:checked');
+    if (checkboxes.length === 0) {
+        document.getElementById('kelasRobotikError').style.display = 'block';
+        isValid = false;
+    } else {
+        document.getElementById('kelasRobotikError').style.display = 'none';
+    }
 
-                if (response.ok) {
-                    alert('Pendaftaran berhasil!');
-                    document.getElementById('registrationForm').reset();
-                } else {
-                    throw new Error('Gagal mengirim data');
-                }
-            } catch (error) {
-                alert('Terjadi kesalahan: ' + error.message);
-            } finally {
-                loading.style.display = 'none';
+    // Validasi semua field input required
+    const inputs = form.querySelectorAll('input[required]');
+    inputs.forEach(input => {
+        const errorElement = document.getElementById(`${input.id}Error`);
+        if (!input.checkValidity()) {
+            errorElement.style.display = 'block';
+            isValid = false;
+        } else {
+            errorElement.style.display = 'none';
+        }
+    });
+
+    if (isValid) {
+        // Kumpulkan data formulir
+        const formData = {
+            nama: document.getElementById('nama').value,
+            kelas: document.getElementById('kelas').value,
+            nirm: document.getElementById('nirm').value,
+            whatsapp: document.getElementById('whatsapp').value,
+            kelasRobotik: Array.from(checkboxes).map(cb => cb.value) // Ambil nilai checkbox yang dipilih
+        };
+
+        // Kirim data ke Google Apps Script sebagai POST request
+        fetch('https://script.google.com/macros/s/AKfycbyGuwMKDVOqL869DC7Q0chNcNipWrxABdfwQLmb7P7Aaf6f_bKEZjEhgpOA6qsZ7Fdn/exec', { // Ganti dengan URL Web App Anda!
+            method: 'POST',
+            mode: 'no-cors', // Tambahkan mode no-cors
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded', // Jenis konten formulir
+            },
+            body: new URLSearchParams(formData).toString() // Ubah data menjadi format URL encoded
+        })
+        .then(response => {
+            if (response.status === 200) { // Periksa status respons HTTP
+                successMessage.style.display = 'block';
+                form.reset();
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 4000);
+
+                // Animasi tombol
+                const button = document.querySelector('button');
+                button.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    button.style.transform = 'scale(1)';
+                }, 200);
+            } else {
+                alert('Pendaftaran Gagal! Status: ' + response.status); // Tampilkan pesan error jika status bukan 200
             }
+        })
+        .catch(error => {
+            alert('Terjadi kesalahan jaringan: ' + error);
         });
+    }
+});
+
+// Live validation (tetap sama)
+form.querySelectorAll('input').forEach(input => {
+    input.addEventListener('input', () => {
+        const errorElement = document.getElementById(`${input.id}Error`);
+        if (input.checkValidity()) {
+            errorElement.style.display = 'none';
+        }
+    });
+});
     </script>
 </body>
 </html>
